@@ -27,11 +27,16 @@ Next up I experimented with `tab-line-mode`. While the functionality is much mor
 
 Setting `tab-line-tabs-function` let me define what buffers I wanted to be displayed as tabs, but none of the standard options behaved how I wanted. They all either showed buffers I did not want to be shown or changed the order of the tabs very unpredictably. Failure #2.
 
+
+### The Final Solution
+
 So, next I tried creating my own custom `tab-line-tabs-function`. I created a simple list to manage the tab/buffers I wanted displayed. I then created a set of functions to manipulate that list to get the functionality I was after.
 
 This took a good amount of work on my part (I am not a programmer) and no small amount of guidance from  [helpful](https://www.reddit.com/r/emacs/comments/qdf1hv/can_i_force_each_buffer_to_use_its_own_tab/) [internet](https://stackoverflow.com/questions/69950296/what-is-the-correct-way-to-edit-an-in-built-function) [strangers](https://stackoverflow.com/questions/70042843/how-to-advice-add-a-function-with-no-arguments-to-a-function-that-takes-argument), but I've been using it for 6 months now and it is everything I had hoped it would be. 
 
 [Check it out here.](https://github.com/thread314/my-tab-line-mode)
+
+The various functions should more or less be self-explanatory. Please note I use `tab-line-switch-to-next-tab` and `tab-line-switch-to-prev-tab` to cycle between tabs.
 
 Tested with Emacs 28.1. 
 
