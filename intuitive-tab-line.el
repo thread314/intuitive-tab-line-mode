@@ -7,6 +7,13 @@
   "A simple list containing all user-created buffers to display as tabs"
   my/current-tab-list)
 
+(defun my/manually-add-current-buffer-to-tab ()
+  "Create a tab for the current buffer"
+  (interactive)
+  (setq my/current-tab-list (append my/current-tab-list (list (current-buffer))))
+  (setq my/current-tab-list (seq-remove (lambda (elt) (not (buffer-name elt))) my/current-tab-list))
+  (force-mode-line-update))
+
 (defun my/add-current-buffer-to-tab (&rest _args)
   "Create a tab for the current buffer"
   (interactive)
@@ -85,17 +92,19 @@
 (defun my/goto-default-tab ()
   "Go to my/default-tab"
   (interactive)
-  (switch-to-buffer my/default-tab))
+  (if my/default-tab
+      (switch-to-buffer my/default-tab)
+    (message "No default tab has been set")))
 
 (defun my/load-initial-buffer-only ()
   "Load initial-buffer-choice as the only tab."
   (interactive)
-  (dolist (buf  (buffer-list))
-    (my/close-if-indirect))
-  (find-file initial-buffer-choice)
+  (if initial-buffer-choice
+      (progn
+	(dolist (buf (buffer-list))
+	  (my/close-if-indirect))
+	(find-file initial-buffer-choice)
   (setq my/current-tab-list (list (current-buffer)))
-  (force-mode-line-update)) 
-
-;; (setq my/current-tab-list (list (current-buffer)))
-;; (my/load-initial-buffer-only)
+  (force-mode-line-update))
+    (message "initial-buffer-choice is not set."))) 
 
