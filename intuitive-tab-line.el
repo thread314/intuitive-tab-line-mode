@@ -21,6 +21,7 @@
       (and 
        (not (seq-contains-p my/current-tab-list (current-buffer))) ;;Exclude if already has a tab 
        (not (string-match (rx "magit") (buffer-name (current-buffer)))) ;;Exclude magit
+       (not (string-match (rx "COMMIT_EDITMSG") (buffer-name (current-buffer)))) ;;Exclude magit and edit msg
        (or
         ;;Define any buffers you would always like to be given their own tab here.
         (buffer-file-name (current-buffer)) ;;Include all file buffers 
