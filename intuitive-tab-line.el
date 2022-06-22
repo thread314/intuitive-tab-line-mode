@@ -103,7 +103,10 @@
       (progn
 	(dolist (buf (buffer-list))
 	  (my/close-if-indirect))
-	(find-file initial-buffer-choice)
+	(cond ((stringp initial-buffer-choice)
+               (find-file initial-buffer-choice))
+              ((functionp initial-buffer-choice)
+               (funcall initial-buffer-choice)))
   (setq my/current-tab-list (list (current-buffer)))
   (force-mode-line-update))
     (message "initial-buffer-choice is not set."))) 
