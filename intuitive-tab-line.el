@@ -22,6 +22,7 @@
        (not (seq-contains-p my/current-tab-list (current-buffer))) ;;Exclude if already has a tab 
        (not (string-match (rx "magit") (buffer-name (current-buffer)))) ;;Exclude magit
        (not (string-match (rx "COMMIT_EDITMSG") (buffer-name (current-buffer)))) ;;Exclude magit and edit msg
+       (not (string-match (rx "CAPTURE-") (buffer-name (current-buffer)))) ;;Exclude capture buffer
        (or
         ;;Define any buffers you would always like to be given their own tab here.
         (buffer-file-name (current-buffer)) ;;Include all file buffers 
@@ -113,3 +114,4 @@
   (force-mode-line-update))
     (message "initial-buffer-choice is not set."))) 
 
+  ;; (advice-add 'quit-window :before #'my/drop-tab)
