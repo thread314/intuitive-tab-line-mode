@@ -32,6 +32,7 @@ Tested with Emacs 28.1.
 
 ### Notes:
 
+- `kill-this-buffer` will generally work just fine, but will sometimes cause a previously dropped buffer to get a tab again. This can be prevented by instead using `my/drop-tab` with a non-nil `kill` argument.
 - You can define which buffers you would like get their own tab and which you would like to remain tabless by editing `my/add-current-buffer-to-tab`. 
 - You can manually add a buffer that would normally not be added with `my/manually-add-current-buffer-to-tab`.
 - You can remove the tab for a buffer, without killing the buffer with `my/drop-tab`. The next time you visit the buffer, it will be given a tab again.
