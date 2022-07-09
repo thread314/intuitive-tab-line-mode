@@ -36,26 +36,33 @@
 
 (setq my/current-tab-list (list (current-buffer)))
 
-(defun my/drop-tab ()
+(defun my/switch-before-drop-kill ()
+  "Switch to another tab, before dropping/killing current buffer (to prevent backgrounded buffers unexpectedly returning to my/current-tab-list)."
+  (let ((n (seq-position my/current-tab-list (current-buffer))))
+    (cond
+     ((= (length my/current-tab-list) 1)
+      ;;If only one tab, return error
+      (message "Only one tab open, cannot drop")) 
+     ;;If left most tab, switch right
+     ((= n 0)
+      (switch-to-buffer (nth 1 my/current-tab-list))) 
+     ;;otherwise switch left
+     (t
+      (switch-to-buffer (nth (- n 1) my/current-tab-list))))))
+
+(defun my/drop-tab (&optional kill)
   "Remove the tab for the current buffer. Will kill indirect buffers, but leave all others open"
   (interactive)
-  (let ((n (seq-position my/current-tab-list (current-buffer)))
-        (buffer-to-drop (current-buffer)))  
-    (my/close-if-indirect)
-    (if (= n 0)
-        (switch-to-buffer (nth 1 my/current-tab-list))
-      (switch-to-buffer (nth (- n 1) my/current-tab-list)))
-    (setq my/current-tab-list (delete buffer-to-drop my/current-tab-list)))
+  (let ((buffer-to-drop (current-buffer)))  
+    (my/switch-before-drop-kill)
+    ;;if buffer is indirect, dired, help or kill is non-nil, kill-this-buffer, otherwise remove from tab-list (keeping buffer open)
+    (if (or kill
+            (buffer-base-buffer buffer-to-drop)
+            ;;buffer-file-name is blank for dired and help descriptions, so kill those buffers
+            (not (buffer-file-name buffer-to-drop)))
+        (kill-buffer buffer-to-drop)
+      (setq my/current-tab-list (delete buffer-to-drop my/current-tab-list))))
   (force-mode-line-update))
-
-(defun my/close-if-indirect ()
-  "Kill the current buffer if it is indirect"
-  (if (or (buffer-base-buffer)
-          ;;buffer-file-name is blank for dired and help descriptions, so kill those buffers
-          (not (buffer-file-name (current-buffer))))
-      (kill-buffer)))
-
-(add-hook 'buffer-list-update-hook #'my/add-current-buffer-to-tab)
 
 (defun my/shift-tab-left ()
   "Shift the current tab one spot to the left"
@@ -104,8 +111,8 @@
   (interactive)
   (if initial-buffer-choice
       (progn
-	(dolist (buf (buffer-list))
-	  (my/close-if-indirect))
+	;;(dolist (buf (buffer-list))
+	  ;;(my/close-if-indirect))
 	(cond ((stringp initial-buffer-choice)
                (find-file initial-buffer-choice))
               ((functionp initial-buffer-choice)
@@ -115,3 +122,6 @@
     (message "initial-buffer-choice is not set."))) 
 
   ;; (advice-add 'quit-window :before #'my/drop-tab)
+
+(add-hook 'buffer-list-update-hook #'my/add-current-buffer-to-tab)
+
