@@ -107,6 +107,15 @@
       (switch-to-buffer my/default-tab)
     (message "No default tab has been set")))
 
+  (defun my/close-all-right-tabs ()
+  "Close all tabs to the right of the current tab"
+    (interactive)
+    (let 
+        ((position
+          (- (safe-length my/current-tab-list) (cl-position (current-buffer) my/current-tab-list) 1)))
+      (setq my/current-tab-list (butlast my/current-tab-list position))
+      (force-mode-line-update)))
+
 (defun my/load-initial-buffer-only ()
   "Load initial-buffer-choice as the only tab."
   (interactive)
