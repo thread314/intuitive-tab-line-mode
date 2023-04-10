@@ -1,5 +1,24 @@
 # Intuitive Tabs in Emacs.
 
+### Installation
+
+1. clone into a folder of your choice (~/.emacs.d/git for example)
+
+2. with use-package, configure it like this:
+
+```
+(use-package intuitive-tab-line
+  :load-path "git/intuitive-tab-line-mode"
+  :bind (("C-<tab>" . tab-line-switch-to-next-tab)
+         ("M-<left>" . intuitive-tab-line-shift-tab-left)
+         ("M-<right>" . intuitive-tab-line-shift-tab-right))
+  :custom
+  (tab-line-tabs-function 'intuitive-tab-line-buffers-list)
+  (tab-line-switch-cycling t)
+  :config
+  (global-tab-line-mode 1))
+```
+
 ### The Goal:
 
 Make Emacs tabs behave intuitively (similar to how tabs behave in a browser).
@@ -32,13 +51,13 @@ Tested with Emacs 28.1.
 
 ### Notes:
 
-- `kill-this-buffer` will generally work just fine, but will sometimes cause a previously dropped buffer to get a tab again. This can be prevented by instead using `my/drop-tab` with a non-nil `kill` argument.
-- You can define which buffers you would like get their own tab and which you would like to remain tabless by editing `my/add-current-buffer-to-tab`. 
-- You can manually add a buffer that would normally not be added with `my/manually-add-current-buffer-to-tab`.
-- You can remove the tab for a buffer, without killing the buffer with `my/drop-tab`. The next time you visit the buffer, it will be given a tab again.
-- You can change the order of the tabs with `my/shift-tab-left` and `my/shift-tab-right`.
-- You can set a 'default' tab with `my/set-default-tab` and go to the default tab with `my/goto-default-tab`.
-- You can remove all tabs and leave only your `initial-buffer-choice` open with `my/load-initial-buffer-only`.
+- `kill-this-buffer` will generally work just fine, but will sometimes cause a previously dropped buffer to get a tab again. This can be prevented by instead using `intuitive-tab-line-drop-tab` with a non-nil `kill` argument.
+- You can define which buffers you would like get their own tab and which you would like to remain tabless by editing `intuitive-tab-line-add-current-buffer-to-tab`. 
+- You can manually add a buffer that would normally not be added with `intuitive-tab-line-manually-add-current-buffer-to-tab`.
+- You can remove the tab for a buffer, without killing the buffer with `intuitive-tab-line-drop-tab`. The next time you visit the buffer, it will be given a tab again.
+- You can change the order of the tabs with `intuitive-tab-line-shift-tab-left` and `intuitive-tab-line-shift-tab-right`.
+- You can set a 'default' tab with `intuitive-tab-line-set-default-tab` and go to the default tab with `intuitive-tab-line-goto-default-tab`.
+- You can remove all tabs and leave only your `initial-buffer-choice` open with `intuitive-tab-line-load-initial-buffer-only`.
 
 ### Conclusion:
 
