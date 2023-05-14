@@ -134,7 +134,7 @@
         (force-mode-line-update))
     (message "initial-buffer-choice is not set.")))
 
-(advice-add 'quit-window :override 'intuitive-tab-line-drop-tab)
+;; (advice-add 'quit-window :override 'intuitive-tab-line-drop-tab)
 
 (add-hook 'buffer-list-update-hook #'intuitive-tab-line-add-current-buffer-to-tab)
 
