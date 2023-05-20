@@ -18,7 +18,7 @@
     (setq
      tab-line-new-button-show nil  ;; do not show add-new button
      tab-line-close-button-show nil  ;; do not show close button
-     tab-line-separator ""  ;; delimitation between tabs
+     tab-line-separator " "  ;; delimitation between tabs
      )
     :bind
     ("C-<prior>" . tab-line-switch-to-prev-tab)
