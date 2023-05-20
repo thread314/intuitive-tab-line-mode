@@ -7,16 +7,27 @@
 2. with use-package, configure it like this:
 
 ```
-(use-package intuitive-tab-line
-  :load-path "git/intuitive-tab-line-mode"
-  :bind (("C-<tab>" . tab-line-switch-to-next-tab)
-         ("M-<left>" . intuitive-tab-line-shift-tab-left)
-         ("M-<right>" . intuitive-tab-line-shift-tab-right))
-  :custom
-  (tab-line-tabs-function 'intuitive-tab-line-buffers-list)
-  (tab-line-switch-cycling t)
-  :config
-  (global-tab-line-mode 1))
+  (use-package intuitive-tab-line
+    :load-path "git/intuitive-tab-line-mode"
+    :custom
+    (tab-line-tabs-function 'intuitive-tab-line-buffers-list)
+    (tab-line-switch-cycling t)
+    :config
+    (global-tab-line-mode 1)
+    (recentf-mode 1)
+    (setq
+     tab-line-new-button-show nil  ;; do not show add-new button
+     tab-line-close-button-show nil  ;; do not show close button
+     tab-line-separator ""  ;; delimitation between tabs
+     )
+    :bind
+    ("C-<prior>" . tab-line-switch-to-prev-tab)
+    ("C-<iso-lefttab>" . tab-line-switch-to-prev-tab)
+    ("C-<next>" . tab-line-switch-to-next-tab)
+    ("C-<tab>" . tab-line-switch-to-next-tab)
+    ("C-S-<prior>" . intuitive-tab-line-shift-tab-left)
+    ("C-S-<next>" . intuitive-tab-line-shift-tab-right)
+    ("C-S-t" . recentf-open-most-recent-file))
 ```
 
 ### The Goal:
