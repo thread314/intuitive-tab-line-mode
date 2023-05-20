@@ -138,5 +138,7 @@
 
 (add-hook 'buffer-list-update-hook #'intuitive-tab-line-add-current-buffer-to-tab)
 
+(intuitive-tab-line-load-initial-buffer-only)
+
 (provide 'intuitive-tab-line)
 ;;; intuitive-tab-line.el ends here
