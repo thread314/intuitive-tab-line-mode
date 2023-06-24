@@ -142,3 +142,4 @@
 
 (provide 'intuitive-tab-line)
 ;;; intuitive-tab-line.el ends here
+
