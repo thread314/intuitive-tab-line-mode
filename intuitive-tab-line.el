@@ -134,7 +134,14 @@
         (force-mode-line-update))
     (message "initial-buffer-choice is not set.")))
 
-;; (advice-add 'quit-window :override 'intuitive-tab-line-drop-tab)
+(setq intuitive-tab-line--stored-tab-list nil)
+
+(defun intuitive-tab-line-store-tabs ()
+  "Store the current tab list in a temporary variable. If there are certain functions that create new tabs (where you'd rather this didn't happen), add this as before-advice to that function. Then add intuitive-tab-line-restore-tabs as after-advice to the function."
+  (setq intuitive-tab-line--stored-tab-list intuitive-tab-line--current-tab-list))
+
+(defun intuitive-tab-line-restore-tabs ()
+  (setq intuitive-tab-line--current-tab-list intuitive-tab-line--stored-tab-list))
 
 (add-hook 'buffer-list-update-hook #'intuitive-tab-line-add-current-buffer-to-tab)
 
