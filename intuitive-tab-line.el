@@ -138,15 +138,16 @@
 
 (defun intuitive-tab-line-store-tabs ()
   "Store the current tab list in a temporary variable. If there are certain functions that create new tabs (where you'd rather this didn't happen), add this as before-advice to that function. Then add intuitive-tab-line-restore-tabs as after-advice to the function."
+  (interactive)
   (setq intuitive-tab-line--stored-tab-list intuitive-tab-line--current-tab-list))
 
 (defun intuitive-tab-line-restore-tabs ()
+  (interactive)
   (setq intuitive-tab-line--current-tab-list intuitive-tab-line--stored-tab-list))
 
 (add-hook 'buffer-list-update-hook #'intuitive-tab-line-add-current-buffer-to-tab)
 
-(intuitive-tab-line-load-initial-buffer-only)
-
 (provide 'intuitive-tab-line)
+
 ;;; intuitive-tab-line.el ends here
 
