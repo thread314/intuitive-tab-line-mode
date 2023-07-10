@@ -136,12 +136,12 @@
 
 (setq intuitive-tab-line--stored-tab-list nil)
 
-(defun intuitive-tab-line-store-tabs ()
+(defun intuitive-tab-line-store-tabs (&rest scratch)
   "Store the current tab list in a temporary variable. If there are certain functions that create new tabs (where you'd rather this didn't happen), add this as before-advice to that function. Then add intuitive-tab-line-restore-tabs as after-advice to the function."
   (interactive)
   (setq intuitive-tab-line--stored-tab-list intuitive-tab-line--current-tab-list))
 
-(defun intuitive-tab-line-restore-tabs ()
+(defun intuitive-tab-line-restore-tabs (&rest scratch)
   (interactive)
   (setq intuitive-tab-line--current-tab-list intuitive-tab-line--stored-tab-list))
 
