@@ -27,7 +27,7 @@
        (not (string-match (rx "COMMIT_EDITMSG") (buffer-name (current-buffer)))) ;;Exclude magit and edit msg
        (not (string-match (rx "CAPTURE-") (buffer-name (current-buffer)))) ;;Exclude capture buffer
        (not (string-match (rx "*org-roam*") (buffer-name (current-buffer)))) ;;Exclude org-roam buffer
-       (not (string-match (rx "*neo-tree*") (buffer-name (current-buffer)))) ;;Exclude org-roam buffer
+       (not (string-match (rx "*NeoTree*") (buffer-name (current-buffer)))) ;;Exclude org-roam buffer
        (or
         ;;Define any buffers you would always like to be given their own tab here.
         (buffer-file-name (current-buffer)) ;;Include all file buffers
