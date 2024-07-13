@@ -32,7 +32,7 @@
         ;;Define any buffers you would always like to be given their own tab here.
         (buffer-file-name (current-buffer)) ;;Include all file buffers
         (buffer-local-value 'list-buffers-directory (current-buffer)) ;;Include Dired Buffers
-        (string-match (rx "*help") (buffer-name (current-buffer))) ;;Include Help Buffers
+        (string-match (rx "*help*") (buffer-name (current-buffer))) ;;Include Help Buffers
         (buffer-base-buffer (current-buffer)) ;;Include Indirect Buffers
 	    ))
       (setq intuitive-tab-line--current-tab-list (append intuitive-tab-line--current-tab-list (list (current-buffer)))))
