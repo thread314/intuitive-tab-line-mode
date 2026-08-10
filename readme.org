@@ -52,12 +52,12 @@ So using ~tab-line-mode~ I have created my own custom ~tab-line-tabs-function~: 
 
 The various functions should more or less be self-explanatory. Please note I use ~tab-line-switch-to-next-tab~ and ~tab-line-switch-to-prev-tab~ to cycle between tabs.
 
-Tested with Emacs 28.1. 
+Tested with Emacs 28.1 and 30.2.
 
 ** Notes:
 
 - ~kill-this-buffer~ will generally work just fine, but will sometimes cause a previously dropped buffer to get a tab again. This can be prevented by instead using ~intuitive-tab-line-drop-tab~ with a non-nil ~kill~ argument.
-- You can define which buffers you would like get their own tab and which you would like to remain tabless by editing ~intuitive-tab-line-add-current-buffer-to-tab~. 
+- You can define which buffers you would like get their own tab and which you would like to remain tabless by customising ~intuitive-tab-line-exclude-regexps~ (buffer names that never get a tab) and ~intuitive-tab-line-include-functions~ (predicates called with a buffer; any non-nil result means the buffer gets a tab).
 - You can manually add a buffer that would normally not be added with ~intuitive-tab-line-manually-add-current-buffer-to-tab~.
 - You can remove the tab for a buffer, without killing the buffer with ~intuitive-tab-line-drop-tab~. The next time you visit the buffer, it will be given a tab again.
 - You can change the order of the tabs with ~intuitive-tab-line-shift-tab-left~ and ~intuitive-tab-line-shift-tab-right~.
